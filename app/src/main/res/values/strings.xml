@@ -5,4 +5,7 @@
     <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="greeting">Hello, %1$s!</string>
+    <string name="login_exception">Credentials incorrect</string>
+    <string name="register_exception">Incorrect data or username with that login already exists</string>
+    <string name="dunno_exception">Something went wrong</string>
 </resources>
