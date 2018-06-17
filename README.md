@@ -1,4 +1,4 @@
-# System zarządzania budżetem - backend  
+# System zarządzania budżetem - frontend  
 [Backend](https://github.com/michalowski-203942/ZZJAVA-2018)
 ## Skład:  
 - Karolina Dąbrowska
