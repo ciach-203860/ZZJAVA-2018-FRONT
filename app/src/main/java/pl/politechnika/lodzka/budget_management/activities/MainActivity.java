@@ -8,10 +8,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import okhttp3.ResponseBody;
 import pl.politechnika.lodzka.budget_management.R;
 import pl.politechnika.lodzka.budget_management.data.LoginResponse;
 import pl.politechnika.lodzka.budget_management.data.User;
 import pl.politechnika.lodzka.budget_management.services.AuthorizationService;
+import pl.politechnika.lodzka.budget_management.services.RegisterService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -65,5 +67,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void register(View view) {
+        RegisterService registerService = httpClient.create(RegisterService.class);
+        EditText usernameEdit = findViewById(R.id.username);
+        EditText passwordEdit = findViewById(R.id.password);
+        final User user = User.builder().username(usernameEdit.getText().toString())
+                .password(passwordEdit.getText().toString()).build();
+        registerService.register(user).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.isSuccessful()) {
+                    login(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

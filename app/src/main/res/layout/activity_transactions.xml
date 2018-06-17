@@ -6,7 +6,13 @@
     android:layout_height="match_parent"
     tools:context="pl.politechnika.lodzka.budget_management.activities.TransactionsActivity">
 <TextView
+    android:id="@+id/greetingLabel"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:layout_constraintTop_toTopOf="parent"/>
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    android:layout_marginTop="5dp"
+    android:layout_marginStart="20dp"
+    android:text=""
+    android:textSize="30sp"/>
 </android.support.constraint.ConstraintLayout>

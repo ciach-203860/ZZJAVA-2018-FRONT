@@ -1,6 +1,8 @@
 package pl.politechnika.lodzka.budget_management.services;
 
+import okhttp3.ResponseBody;
 import pl.politechnika.lodzka.budget_management.data.User;
+import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
@@ -10,5 +12,5 @@ import retrofit2.http.POST;
 
 public interface RegisterService {
     @POST("api/register")
-    void register(@Body User user);
+    Call<ResponseBody> register(@Body User user);
 }
