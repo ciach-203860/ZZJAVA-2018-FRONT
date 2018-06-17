@@ -8,12 +8,15 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.IOException;
+
 import okhttp3.ResponseBody;
 import pl.politechnika.lodzka.budget_management.R;
 import pl.politechnika.lodzka.budget_management.data.LoginResponse;
 import pl.politechnika.lodzka.budget_management.data.User;
 import pl.politechnika.lodzka.budget_management.services.AuthorizationService;
 import pl.politechnika.lodzka.budget_management.services.RegisterService;
+import pl.politechnika.lodzka.budget_management.tools.ToastManager;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -56,12 +59,21 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("BEARER", bearer);
                     intent.putExtra("USER", user);
                     startActivity(intent);
+                } else {
+                    String msg;
+                    switch (response.code()) {
+                        case 400 : msg = getString(R.string.login_exception);
+                        break;
+                        default:
+                            msg = getString(R.string.dunno_exception);
+                    }
+                    ToastManager.ShowToast(msg, context);
                 }
             }
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+                ToastManager.ShowToast(t.getMessage(), context);
             }
         });
     }
@@ -77,12 +89,21 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if(response.isSuccessful()) {
                     login(null);
+                } else {
+                    String msg;
+                    switch (response.code()) {
+                        case 400 : msg = getString(R.string.register_exception);
+                            break;
+                        default:
+                            msg = getString(R.string.dunno_exception);
+                    }
+                    ToastManager.ShowToast(msg, context);
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+                ToastManager.ShowToast(t.getMessage(), context);
             }
         });
     }
