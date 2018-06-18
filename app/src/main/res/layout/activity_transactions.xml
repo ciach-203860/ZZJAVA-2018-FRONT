@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="pl.politechnika.lodzka.budget_management.activities.TransactionsActivity">
+    tools:context="pl.politechnika.lodzka.budget_management.activities.TransactionListActivity">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/transactions"
         android:layout_width="match_parent"

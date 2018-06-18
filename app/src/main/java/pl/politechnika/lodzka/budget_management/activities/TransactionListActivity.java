@@ -22,7 +22,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TransactionsActivity extends AppCompatActivity {
+public class TransactionListActivity extends AppCompatActivity {
     private ConnectionProvider connectionProvider;
     private String bearer;
     private User user;

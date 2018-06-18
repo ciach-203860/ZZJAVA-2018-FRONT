@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 if(response.isSuccessful()) {
                     String bearer = response.body().getBearer();
                     Toast.makeText(context, bearer, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(context, TransactionsActivity.class);
+                    Intent intent = new Intent(context, TransactionListActivity.class);
                     mConnectionProvider.setBearer(bearer);
                     mConnectionProvider.setUser(user);
                     startActivity(intent);
