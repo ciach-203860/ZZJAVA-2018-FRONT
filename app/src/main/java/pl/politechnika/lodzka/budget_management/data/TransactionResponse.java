@@ -41,6 +41,7 @@ public class TransactionResponse {
             TransactionInfo transactionInfo = TransactionInfo.builder()
                     .id(response.id)
                     .category(response.category)
+                    .description(response.description)
                     .date(sqlDate)
                     .value(response.value)
                     .build();
