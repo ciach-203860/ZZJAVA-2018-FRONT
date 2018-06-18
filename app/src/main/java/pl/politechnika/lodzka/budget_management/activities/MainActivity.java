@@ -2,13 +2,11 @@ package pl.politechnika.lodzka.budget_management.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import java.io.IOException;
 
 import okhttp3.ResponseBody;
 import pl.politechnika.lodzka.budget_management.R;
@@ -16,14 +14,15 @@ import pl.politechnika.lodzka.budget_management.data.LoginResponse;
 import pl.politechnika.lodzka.budget_management.data.User;
 import pl.politechnika.lodzka.budget_management.services.AuthorizationService;
 import pl.politechnika.lodzka.budget_management.services.RegisterService;
+import pl.politechnika.lodzka.budget_management.tools.ConnectionProvider;
 import pl.politechnika.lodzka.budget_management.tools.ToastManager;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
+    private ConnectionProvider mConnectionProvider;
     private Retrofit httpClient;
     private Context context;
 
@@ -31,10 +30,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        httpClient = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8080/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        mConnectionProvider = ConnectionProvider.getInstance();
+        httpClient = mConnectionProvider.getHttpClient();
         context = getApplicationContext();
     }
 
@@ -56,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
                     String bearer = response.body().getBearer();
                     Toast.makeText(context, bearer, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context, TransactionsActivity.class);
-                    intent.putExtra("BEARER", bearer);
-                    intent.putExtra("USER", user);
+                    mConnectionProvider.setBearer(bearer);
+                    mConnectionProvider.setUser(user);
                     startActivity(intent);
                 } else {
                     String msg;
