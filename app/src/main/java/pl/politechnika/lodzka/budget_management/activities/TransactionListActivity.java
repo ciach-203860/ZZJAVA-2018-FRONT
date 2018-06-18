@@ -1,9 +1,13 @@
 package pl.politechnika.lodzka.budget_management.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,6 +45,29 @@ public class TransactionListActivity extends AppCompatActivity {
         bearer = connectionProvider.getBearer();
         user = connectionProvider.getUser();
         getTransactions();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_transactions, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add_transaction:
+                startAddTransactionActivity();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    void startAddTransactionActivity(){
+        Intent intent = new Intent(this, AddTransactionActivity.class);
+        startActivity(intent);
     }
 
     private void getTransactions() {
